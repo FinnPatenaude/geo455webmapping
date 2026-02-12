@@ -11,7 +11,8 @@
   const student = {
     name: "Finn",          // property
     major: "Geography",    // property
-    credits: 45,           // property
+    credits: 110,           // property
+    
 
     // method (uses properties via "this")
     intro() {
@@ -26,12 +27,17 @@
   };
 
   const msg = [
-    `Property example: ${student.name}`,
+    `Property example: ${student.credits}`,
     `Method example: ${student.intro()} Currently, I am taking ${student.credits} credits`,
-    `Method changes property: Next semester I will have ${student.addCredits(15)} credits`
+    `Method changes property: Next semester I will have ${student.addCredits(13)} credits`
   ].join("<br>");
 
   document.getElementById("out").innerHTML = msg;
 </script>
+    
+ <footer class="center">
+    <small><a href='geo455_ex3.html'>Back to Last Page</a></small>
+  </footer>
+    
 </body>
 </html>
