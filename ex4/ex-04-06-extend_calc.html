@@ -9,7 +9,9 @@
         
         <input type="button" id="multiply" value="Multiply!">
         <input type="button" id="divide" value="Divide!">
-        <input type="button" id="clear" value="Clear History!">
+        <input type="button" id="add" value="Add!">
+        <input type="button" id="subtract" value="Subtract!">
+        <input type="button" id="clear" value="Clear History.">
         <!-- add more math functions --->
         <p id="result"></p>
         
@@ -26,9 +28,22 @@
                 result.innerHTML +="<p>" + num1.value + " / " + num2.value + 
                     " = " + num1.value / num2.value + "</p>";});
             
+            document.getElementById("add").addEventListener("click",function() {
+                result.innerHTML +="<p>" + num1.value + " + " + num2.value + 
+                    " = " + (Number(num1.value) + Number(num2.value)) + "</p>";});
+            
+            document.getElementById("subtract").addEventListener("click",function() {
+                result.innerHTML +="<p>" + num1.value + " - " + num2.value + 
+                    " = " + (Number(num1.value) - Number(num2.value)) + "</p>";});
+            
             document.getElementById("clear").addEventListener("click", function() {
                 result.innerHTML ="";});
             
         </script>
+        
+<footer class="center">
+    <small><a href='geo455_ex4.html'>Back to Last Page</a></small>
+</footer>
+        
     </body>
 </html>

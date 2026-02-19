@@ -4,10 +4,10 @@
         <title>Working with user input</title>
     </head>
     <body>
-        <p>First number: <input type="number" id="num1" min="0" max="100" value=""></p>
-        <p>Second number: <input type="number" id="num2" min="0" max="100" value=""></p>
+        <p>Numerator: <input type="number" id="num1" min="0" max="100" value=""></p>
+        <p>Denominator: <input type="number" id="num2" min="0" max="100" value=""></p>
         
-        <input type="button" id="multiply" value="Multiply!">
+        <input type="button" id="divide" value="Divide!">
         <p id="result"></p>
         
         <script>
@@ -15,9 +15,14 @@
             var num2 = document.getElementById("num2");
             var result = document.getElementById("result");
             
-            document.getElementById("multiply").addEventListener("click", function() {
-                result.innerHTML = "The result is: " + num1.value * num2.value;
+            document.getElementById("divide").addEventListener("click", function() {
+                result.innerHTML = "The result is: " + num1.value / num2.value;
             });
         </script>
+        
+<footer class="center">
+    <small><a href='geo455_ex4.html'>Back to Last Page</a></small>
+</footer>
+        
     </body>
 </html>
