@@ -1,4 +1,4 @@
-const map = L.map("map").setView([48.02162, -88.8674], 11);
+const map = L.map("map").setView([48.02162, -88.9174], 11);
 
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 19,
@@ -154,4 +154,5 @@ L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
   maxZoom: 17,
   attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
                '<a href="https://opentopomap.org">OpenTopoMap</a>'
+
 }).addTo(map);
