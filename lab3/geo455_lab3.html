@@ -29,30 +29,34 @@
   <div id="description">
     <h2>Welcome to Isle Royale!</h2>
     
+     <img src="https://live.staticflickr.com/6187/6127570693_052ba73c9e_b.jpg" alt="Isle Royale island view." width="280">
     
-    
-   <p> </p> This map depicts my trip to Isle Royale National Park in the Summer of 2022 as part of an Intermediate Outpost Backpacking Trip with Camp Manito-wish. Feel free to click on each site to learn more about the National Park and view pictures I took while I was there!
+   <p> </p> This map depicts my trip to Isle Royale National Park in the Summer of 2022 as part of an Intermediate Outpost Backpacking Trip with Camp Manito-wish. Feel free to click on each site to learn more about my amazing trip! (pictures coming soon)
    
     <p>Marked Locations in order of my trip's itinerary:</p> <!-- Replace with your name-->
   
-     <ol id="species"></ol> 
+     <ol id="places"></ol> 
         
         <script>
-            var data = ["Rock Harbor Visitor Center", "Daisy Farm Campground", "East Chicken Bone Lake Campground", "Hatchet Lake Campground", "South Lake Desor Campground", "Washington Creek Campground", "Windigo Visitor Center", "Feldtmann Lake Campground", "Rainbow Cove Trail", "West Chicken Bone Lake Campground" ];
+            var data = ["Rock Harbor Visitor Center", "Daisy Farm Campground", "East Chicken Bone Lake Campground", "Hatchet Lake Campground", "South Lake Desor Campground", "Washington Creek Campground", "Windigo Visitor Center", "Feldtmann Lake Campground", "Rainbow Cove Trail", "North Lake Desor Campground", "West Chicken Bone Lake Campground", "Ryan Island (Bonus!)" ];
             var html = "";
             data.forEach(function(element) {
                 html += "<li><i>" + element + "</i></li>";
             });
-            document.getElementById("species").innerHTML = html;
+            document.getElementById("places").innerHTML = html;
             
         </script>
   
+    
      <p> This is a final result of the <a href="https://leafletjs.com/examples/quick-start/" target="_blank" rel="noopener">Leaflet Quick Start Guide</a>. This map demonstrates Leaflet basics, such as setting up a Leaflet map and adding markers and popups. The placement and styling of the title and description boxes is done using CSS. Check out the source code of this page to see how. </p>
     
      <p>Map authored by Finn Patenaude</p>
     
   </div>
    
+  <h3 id="footer">Image Credits: Joe Ross (on flickr.com/joeross/) (Creative Commons License)  
+   <a href="../index.html">Click here to get back to my main page.</a> </h3>
+  
      <!-- Your map code  -->
   <script src="lab3_map.js"></script>
 </body>
