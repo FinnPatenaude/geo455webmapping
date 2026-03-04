@@ -7,11 +7,8 @@ var streets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{
     zoomOffset: -1
 });
 
-var imagery = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.{ext}', {
-	minZoom: 0,
-	maxZoom: 20,
-	attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-	ext: 'png'
+var imagery = L.tileLayer('http://tile.mtbmap.cz/mtbmap_tiles/{z}/{x}/{y}.png', {
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &amp; USGS'
 });
 
 var topo = L.tileLayer.wms('http://ows.mundialis.de/services/service?', {
@@ -117,7 +114,7 @@ lines.addTo(map);
 
 /* Layer control and Menu Item */
 var baseLayers = {
-    DarkBackground: imagery,
+    GreenOrBlue: imagery,
     Streetmap: streets,
     Hillshade: topo
 };
