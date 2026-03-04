@@ -21,7 +21,7 @@ var topo = L.tileLayer.wms('http://ows.mundialis.de/services/service?', {
 var map = L.map("map", {
   center: [6.794952075439587, 20.91148703911037],
   zoom: 2,
-  layers: [streets, imagery, topo]
+  layers: [streets, topo, imagery]
 });
 
 var homeCenter = map.getCenter(); // this is extracting the original map center and saving it in the variable
@@ -86,6 +86,8 @@ function addWondersToLayer(dataArray, layerGroup) {
 
 addWondersToLayer(wonders, landmarks);
 
+var lines = L.layerGroup();
+
 /* Adding the Great Wall of China Line */
 var greatWallLineCoords = [
   [40.45058574410227, 116.54903113946699],
@@ -115,16 +117,16 @@ lines.addTo(map);
 
 /* Layer control and Menu Item */
 var baseLayers = {
-    'Satellite Imagery': imagery,
-    'Streetmap': streets,
-    "Hillshade": topo,
-    };
+    DarkBackground: imagery,
+    Streetmap: streets,
+    Hillshade: topo
+};
 
 var overlays = {
   "Seven Wonders": landmarks,
   "Great Wall": lines
 };
 
-L.control.layers(baseLayers, overlays, {collapsed: false }).addTo(map);
+L.control.layers(baseLayers, overlays, { collapsed: false }).addTo(map);
 
 
