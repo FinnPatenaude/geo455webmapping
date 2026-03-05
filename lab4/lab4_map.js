@@ -34,7 +34,7 @@ var greatwallPopup = "Great Wall of China<br/><img src='https://upload.wikimedia
 
 /* chichenPopup, petraPopup,  machuPopup, christPopup, coloPopup, tajPopup */
 
-var chichenPopup = " Chichen-Itza<br/><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/003_El_Castillo_o_templo_de_Kukulkan._Chich%C3%A9n_Itz%C3%A1%2C_M%C3%A9xico._MPLC.jpg/256px-003_El_Castillo_o_templo_de_Kukulkan._Chich%C3%A9n_Itz%C3%A1%2C_M%C3%A9xico._MPLC.jpg'alt='chichen-itza wiki' width='150px'/>";
+var chichenPopup = " Chichen-Itza<br/><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Chichen_Itza_3.jpg/1920px-Chichen_Itza_3.jpg'alt='chichen-itza wiki' width='150px'/>";
 
 var petraPopup = "Petra<br/><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/The_Monastery%2C_Petra%2C_Jordan8.jpg/256px-The_Monastery%2C_Petra%2C_Jordan8.jpg'alt='petra wiki' width='150px'/>";
 
