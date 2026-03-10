@@ -133,7 +133,6 @@ for (var i = 0; i < wonders.length; i++) {
 var baseLayers = {
     GreenOrBlue: imagery,
     Streetmap: streets,
-    Hillshade: topo
 };
 
 var overlays = {
@@ -227,4 +226,5 @@ var miniMap = new L.Control.MiniMap(miniLayer, {
   minimized: false,
   position: "bottomleft"
 }).addTo(map);
+
 
