@@ -87,6 +87,18 @@ function addWondersToLayer(dataArray, layerGroup, iconsArray) {
   return markers;
 }
 
+var wonderIcons = [];
+for (var i = 0; i < iconFiles.length; i++) {
+  wonderIcons.push(
+    L.icon({
+      iconUrl: iconFiles[i],
+      iconSize: [30, 30],
+      iconAnchor: [15, 30],
+      popupAnchor: [0, -28],
+    })
+  );
+}
+
 var wonderMarkers = addWondersToLayer(wonders, landmarks, wonderIcons);
 
 var buttonsDiv = document.getElementById("wonder-buttons");
@@ -115,39 +127,6 @@ for (var i = 0; i < wonders.length; i++) {
     buttonsDiv.appendChild(btn);
   })(i);
 }
-
-var wonderIcons = [];
-for (var i = 0; i < iconFiles.length; i++) {
-  wonderIcons.push(
-    L.icon({
-      iconUrl: iconFiles[i],
-      iconSize: [30, 30],
-      iconAnchor: [15, 30],
-      popupAnchor: [0, -28],
-    })
-  );
-}
-
-function addWondersToLayer(dataArray, layerGroup) {
-
-  for (var i = 0; i < dataArray.length; i++) {
-    var feature = dataArray[i]; // Going through each feature
-
-    var marker = L.marker(feature.coords); // Create a marker from the coordinates
-
-    marker.bindPopup(feature.popupHtml, customOptions); // Bind the popup (with custom CSS className and maxWidth)       
-
-        marker.bindTooltip(feature.name, {
-      direction: "top",
-      sticky: true,
-      opacity: 0.9});
-
-    marker.addTo(layerGroup); // Add the markers to the layer group
-  }
-}
-
-addWondersToLayer(wonders, landmarks);
-
 
 
 /* Layer control and Menu Item */
@@ -219,10 +198,10 @@ async function getISS() {
 
 //Initial call + refresh
 getISS();
-setinterval(getISS, 1000);
+setInterval(getISS, 1000);
 
 //Jump to ISS button (required feature
-document.getElementId("btn-iss").addEventListener("click", function () {
+document.getElementById("btn-iss").addEventListener("click", function () {
  var ll = issMarker.getLatLng();
   map.setView([ll.lat, ll.lng], 4);
 });
@@ -248,5 +227,4 @@ var miniMap = new L.Control.MiniMap(miniLayer, {
   minimized: false,
   position: "bottomleft"
 }).addTo(map);
-
 
