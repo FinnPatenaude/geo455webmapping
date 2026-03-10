@@ -234,16 +234,8 @@ var measureOptions = {
 
 L.control.polylineMeasure(measureOptions).addTo(map);
 
-var map = L.map('map').setView([30.182505,-93.318665], 12);
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 18,
-    attribution:'&copy; OpenStreetMap contributors'
-}).addTo(map);
-
-// Add Better Scale Bar
 L.control.betterscale({
-    position: "topright",
+    position: "bottomright",
     metric: true,
     imperial: true
 }).addTo(map);
