@@ -13,8 +13,8 @@ body {
 
 /* Make the map fill the entire browser window */
 #map {
-  position: fixed;
-  inset: 0; /* top:0; right:0; bottom:0; left:0 */
+  width: 100%;
+  height: 600px; /* top:0; right:0; bottom:0; left:0 */
 }
 .custom .leaflet-popup-tip,
 .custom .leaflet-popup-content-wrapper {
@@ -82,4 +82,5 @@ body {
 
 #description a:hover {
   text-decoration: underline;
+
 }
