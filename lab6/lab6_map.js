@@ -140,7 +140,7 @@ function onEachLanguageFeature(feature, layer) {
 var densitylayer = L.geoJSON(data, { style: styleDensity, onEachFeature: onEachDensityFeature }).addTo(mymap);
 
 // Add map data and choropleth colors
-var languagelayer = L.geoJSON(speaker_den, { style: styleLanguage, onEachFeature: onEachLanguageFeature });
+var languagelayer = L.geoJSON(speaker_den, { style: styleLanguage, onEachFeature: onEachLanguageFeature }).addTo(mymap);
 
 /* ---------------------------------------------------------
   Build legends in the side panel
@@ -166,7 +166,7 @@ function buildLegendHTML(title, grades, colorFunction) {
 
 document.addEventListener("DOMContentLoaded", function () {
 
-var densityLegendDiv = document.getElementById('density-legend');
+var densityLegendDiv = document.getElementById('language-legend');
 if (densityLegendDiv) {
   densityLegendDiv.innerHTML = buildLegendHTML(
     'Population Density',
@@ -176,7 +176,7 @@ if (densityLegendDiv) {
 }
 
 //Insert language legend into side panel
-var languageLegendDiv = document.getElementById('language-legend');
+var languageLegendDiv = document.getElementById('noneng-legend');
 if (languageLegendDiv) {
   languageLegendDiv.innerHTML = buildLegendHTML(
     'Non-English Speaker Density',
@@ -189,10 +189,12 @@ if (languageLegendDiv) {
 /* Layer control and Menu Item */
 
 var baseLayers = {
-  "Population Density": densitylayer,
-  "Non-English Speaker Density": languagelayer
+    "Grey Base Map": grey
 };
 
-var overlays = {};
+var overlays = {
+    "Population Density": densitylayer,
+    "Non-English Speaker Density": languagelayer
+};
 
-L.control.layers(baseLayers, overlays, { collapsed: false }).addTo(mymap);
+L.control.layers( overlays, {collapsed: false}).addTo(mymap);
