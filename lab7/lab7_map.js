@@ -55,3 +55,108 @@ var peaks = new L.geoJson(mtn_peaks, {
     return L.marker (latlng, {icon: myIcon});
   }
 }).addTo(mymap);
+
+
+//-- proportional circles--//
+
+function getRadius(area) {
+    var radius = Math.sqrt(area / Math.PI);
+    return radius * 2;
+}
+
+var propcircles = new L.geoJson(mtn_peaks, {
+  onEachFeature: function(feature, featureLayer) {
+    featureLayer.bindPopup(
+      '<p>Peak Name: <b>' + feature.properties.TITLE + '</b></br>' + 
+      'Number of Expeditions: ' + feature.properties.number_of1 + '</p>'
+    );
+  },
+  pointToLayer: function(feature, latlng) {
+    return L.circleMarker(latlng, {
+      fillColor: '#920101',
+      color: '#920101',
+      weight: 2,
+      radius: getRadius(feature.properties.number_of1),
+      fillOpacity: 0.35
+  }).on({
+      mouseover: function(e) {
+        this.openPopup();
+        this.setStyle({fillOpacity: 0.8, fillColor: '#2D8F4E'});
+      },
+      mouseout: function(e) {
+        this.closePopup();
+        this.setStyle({fillOpacity: 0.35, fillColor: '#920101'});
+      }
+    });
+  }
+});
+
+
+//-- heatmap! --//
+
+var min = 0;
+var max = 0;
+var heatMapPoints = [];
+
+mtn_peaks.features.forEach(function(feature) {
+    heatMapPoints.push([
+      feature.geometry.coordinates[1],
+      feature.geometry.coordinates[0],
+      feature.properties.number_of_
+    ]);
+  
+    if (feature.properties.number_of_ < min || min === 0) {
+      min = feature.properties.number_of_;
+    }
+  
+    if (feature.properties.number_of_ > max || max === 0) {
+      max = feature.properties.number_of_;
+    }
+  });
+
+var heat = L.heatLayer(heatMapPoints, {
+    radius: 25,
+    minOpacity: 0.5,
+    gradient:{0.5: 'yellow', 0.75: 'orange', 1: 'red'}
+});
+
+//-- cluster function --//
+var clustermarkers = L.markerClusterGroup();
+mtn_peaks.features.forEach(function(feature) {
+    clustermarkers.addLayer(L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]));
+});
+
+
+
+
+//-- search box --//
+
+var searchControl = new L.Control.Search({
+    position:'topright',
+    layer: peaks,
+    propertyName: 'TITLE',
+    marker: false,
+    markeranimate: true,
+    delayType: 100,
+    collapsed: false,
+    textPlaceholder: 'Search by Peak Name: e.g. Everest, Lhotse',   
+    moveToLocation: function(latlng, title, map) {
+        mymap.setView(latlng, 15);}
+});
+
+mymap.addControl(searchControl); 
+
+//-- layer control menu --//
+
+var baseMaps = {
+  "Topographic": Esri_WorldTopoMap,
+};
+    
+var overlays = {
+  "Mountain Peaks": peaks,
+  "Proportional Circles": propcircles,
+  "Heat Map": heat,
+  "Cluster": clustermarkers
+};
+
+L.control.layers(baseMaps, overlays, {collapsed: false }).addTo(mymap);
