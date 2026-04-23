@@ -34,7 +34,7 @@ var miniMap = new L.Control.MiniMap(miniLayer, {
 //--Icon import/creation --//
 
 var myIcon = L.icon({
-    iconUrl: 'images/4874bc2389e71df4c479ad933b12226a.svg',
+    iconUrl: 'imagesFP/4874bc2389e71df4c479ad933b12226a.svg',
     iconSize: [30, 30],
     iconAnchor: [10, 15],
     popupAnchor: [1, -24],
