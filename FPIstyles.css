@@ -13,7 +13,7 @@ body {
   padding: 12px;
   display: grid;
   gap: 12px;
-  grid-template-columns: 700px 1fr 220px;
+  grid-template-columns: 700px 1fr 400px;
   grid-template-areas:
     "header header header"
     "left   main   right"

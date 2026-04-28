@@ -4,7 +4,7 @@
 
 var mymap = L.map("map", {
   center: [43.718490, -91.249710],
-  zoom: 8
+  zoom: 9
 });
 
 var Esri_WorldTopoMap = L.tileLayer(
@@ -16,13 +16,15 @@ var Esri_WorldTopoMap = L.tileLayer(
 
 // Base tile layer
 var grey = L.tileLayer(
-  'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
+  'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
   {
-    attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community',
+    attribution: '&copy; OpenStreetMap &copy; CARTO',
     subdomains: 'abcd',
     maxZoom: 20
   }
-).addTo(mymap);
+);
+
+Esri_WorldTopoMap.addTo(mymap);
 
 // ------------------------
 // Mini Map
@@ -91,8 +93,6 @@ L.easyButton('<img src="imagesFP/info_icon.png" style="width:20px;height:20px;">
 // Heat Map
 // ------------------------
 
-var heat;
-
 function createHeatMap(data) {
 
   var heatMapPoints = [];
@@ -106,32 +106,42 @@ function createHeatMap(data) {
     heatMapPoints.push([lat, lng, 1]);
   });
 
-  heat = L.heatLayer(heatMapPoints, {
+  return L.heatLayer(heatMapPoints, {
     radius: 25,
     minOpacity: 0.25,
     gradient: { 0.5: 'yellow', 0.75: 'orange', 1: 'red' }
   });
 
-  heat.addTo(mymap);
 }
 
-// Load GeoJSON once
-fetch('baldeagles.geojson')
-  .then(response => response.json())
-  .then(data => {
-    createHeatMap(data);
+var eagleHeat;
+var robinHeat;
+
+Promise.all([
+  fetch('baldeagles.geojson').then(res => res.json()),
+  fetch('americanrobins.geojson').then(res => res.json())
+]).then(([eagleData, secondData]) => {
+
+  eagleHeat = createHeatMap(eagleData);
+  robinHeat = createHeatMap(secondData);
+
+  // Add one by default (optional)
+  eagleHeat.addTo(mymap);
+
 
     // ------------------------
     // Layer Control
     // ------------------------
 
     var baseMaps = {
-      "Topographic": Esri_WorldTopoMap
+      "Topographic": Esri_WorldTopoMap,
+      "Grayscale": grey
     };
 
     var overlays = {
       "Park Locations": trail_spots,
-      "Bald Eagle Sightings": heat
+      "Bald Eagle Sightings": eagleHeat,
+      "American Robin Sightings": robinHeat
     };
 
     L.control.layers(baseMaps, overlays, {
@@ -148,6 +158,7 @@ var searchControl = new L.Control.Search({
   layer: trail_spots,
   propertyName: 'TITLE',
   marker: false,
+  zoom: 15,
   markeranimate: true,
   delayType: 100,
   collapsed: false,
