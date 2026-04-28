@@ -7,6 +7,60 @@ var mymap = L.map("map", {
   zoom: 9
 });
 
+var legend = L.control({ position: "topright" });
+
+legend.onAdd = function (map) {
+
+  var div = L.DomUtil.create("div", "info legend");
+
+  div.innerHTML = `
+    <h6><b>Legend</b></h6>
+
+    <i style="background: red; width:12px; height:12px; display:inline-block;"></i>
+    High bird density<br>
+
+    <i style="background: orange; width:12px; height:12px; display:inline-block;"></i>
+    Medium density<br>
+
+    <i style="background: yellow; width:12px; height:12px; display:inline-block;"></i>
+    Low density<br>
+
+    <img src="imagesFP/4874bc2389e71df4c479ad933b12226a.svg" width="18">
+    Park locations
+  `;
+
+  return div;
+};
+
+document.getElementById("heatmap-legend").innerHTML = `
+  <div class="p-2 border rounded bg-white shadow-sm">
+
+    <h6><b>Map Legend</b></h6>
+
+    <div>
+      <span style="background:red;width:12px;height:12px;display:inline-block;border-radius:50%;"></span>
+      High Sighting Density
+    </div>
+
+    <div>
+      <span style="background:orange;width:12px;height:12px;display:inline-block;border-radius:50%;"></span>
+      Medium Sighting Density
+    </div>
+
+    <div>
+      <span style="background:yellow;width:12px;height:12px;display:inline-block;border-radius:50%;"></span>
+      Low Sighting Density
+    </div>
+
+    <div class="mt-2">
+      <img src="imagesFP/4874bc2389e71df4c479ad933b12226a.svg" width="18">
+      Park/Trail/Overlook Locations
+    </div>
+
+  </div>
+`;
+
+
 var Esri_WorldTopoMap = L.tileLayer(
   'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
   {
