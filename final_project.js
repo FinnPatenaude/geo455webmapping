@@ -66,9 +66,13 @@ var trail_spots = new L.geoJson(great_trail_spots, {
       '<p><b>' + feature.properties.TITLE + '</b><br>' +
       'City/Town: ' + feature.properties.City + '<br>' +
       'Details: ' + feature.properties.details + '<br>' +
-      'County: ' + feature.properties.county + '</p>'
+      'County: ' + feature.properties.county + '</p>' +
+      '<img src="' + feature.properties.image + '" style="width:200px;">'
     );
+    
+    featureLayer.featureTitle = feature.properties.TITLE;
   },
+  
   pointToLayer: function (feature, latlng) {
     return L.marker(latlng, { icon: myIcon });
   }
@@ -116,14 +120,17 @@ function createHeatMap(data) {
 
 var eagleHeat;
 var robinHeat;
+var heronHeat;
 
 Promise.all([
   fetch('baldeagles.geojson').then(res => res.json()),
-  fetch('americanrobins.geojson').then(res => res.json())
-]).then(([eagleData, secondData]) => {
+  fetch('americanrobins.geojson').then(res => res.json()),
+  fetch('greatblueherons.geojson').then(res => res.json())
+]).then(([eagleData, robinData, heronData]) => {
 
   eagleHeat = createHeatMap(eagleData);
-  robinHeat = createHeatMap(secondData);
+  robinHeat = createHeatMap(robinData);
+  heronHeat = createHeatMap(heronData);
 
   // Add one by default (optional)
   eagleHeat.addTo(mymap);
@@ -140,8 +147,9 @@ Promise.all([
 
     var overlays = {
       "Park Locations": trail_spots,
-      "Bald Eagle Sightings": eagleHeat,
-      "American Robin Sightings": robinHeat
+      "Bald Eagle": eagleHeat,
+      "American Robin": robinHeat,
+      "Great Blue Heron": heronHeat,
     };
 
     L.control.layers(baseMaps, overlays, {
@@ -158,11 +166,35 @@ var searchControl = new L.Control.Search({
   layer: trail_spots,
   propertyName: 'TITLE',
   marker: false,
-  zoom: 15,
   markeranimate: true,
   delayType: 100,
   collapsed: false,
-  textPlaceholder: 'Search by Park Name'
+  textPlaceholder: 'Search by Park Name',
+  
+ moveToLocation: function(latlng, title, map) {
+    map.flyTo(latlng, 15, {
+      duration: 1.2
+    });
+  }
 });
 
 mymap.addControl(searchControl);
+
+mymap.on('search:locationfound', function(e) {
+
+  mymap.flyTo(e.latlng, 15, {
+    duration: 1.2
+    
+  });
+
+  trail_spots.eachLayer(function(layer) {
+
+    if (layer.feature &&
+        layer.feature.properties &&
+        layer.feature.properties.TITLE === e.text) {
+
+      layer.openPopup();
+    }
+  });
+
+});
