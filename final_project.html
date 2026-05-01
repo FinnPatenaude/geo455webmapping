@@ -63,36 +63,96 @@
       </div> 
    </div> 
 
-<!-- Info panel column --> 
-   <div class="col-lg-3"> 
-      <div class="card shadow-sm"> 
-         <div class="card-body"> 
-            <h5 class="card-title mb-3">Map Layers and Controls</h5>
 
+         
+
+<!-- Info panel column --> 
+<div class="col-lg-3"> 
+  <div class="card shadow-sm"> 
+    <div class="card-body"> 
+
+      <h5 class="card-title mb-3">Map Information & Heatmap Controls</h5>
+
+      <!-- Legend -->
    <div id="heatmap-legend" class="mt-2"></div>
-    <p><strong>Park/Outlook Locations:</strong> Tree markers show where each park or scenic outlook is located.</p>
-    <p><strong>Search and Navigation:</strong> Use park-name search, the mini map, scale bar, and full-extent button to explore efficiently.</p>
-    <div id="top-peaks-buttons" class="d-grid gap-2 mb-3"></div>
-    <p><strong>Proportional Circles showing number of expeditions:</strong> Circle size represents the number of expeditions for each peak.</p>
-    <!-- Proportional circle class legend will be injected by map_lab7.js -->
-    <p><strong>Sighting Density Heat Map:</strong> Heat intensity is weighted by total number of sightings occured in an area, so brighter areas indicate places with higher sighting totals.</p>
-          </div>
-            <p> Map Credit: Finn Patenaude </p>
-            </div>
-          </div>
-        </div> 
+
+<!-- Heatmap Tabs -->
+<div id="heatmap-grid">
+
+ 
+   
+  <div class="heat-item active" onclick="toggleHeat('eagle')">
+    <img src="https://abcbirds.org/wp-content/uploads/2025/08/Bald-Eagle_Kaleb-Friend_U-scaled.webp">
+    <div class="heat-label">Bald Eagle</div>
+  </div>
+
+  <div class="heat-item" onclick="toggleHeat('robin')">
+    <img src="https://www.eekwi.org/sites/default/files/2020-01/robin.jpg">
+    <div class="heat-label">American Robin</div>
+  </div>
+
+  <div class="heat-item" onclick="toggleHeat('heron')">
+    <img src="imagesFP/gbheron.jpg">
+    <div class="heat-label">Great Blue Heron</div>
+  </div>
+   
+  <div class="heat-item" onclick="toggleHeat('bluejay')">
+    <img src="https://images.squarespace-cdn.com/content/v1/55c0d7e5e4b05b835010c1f4/1bfaa8d7-5ce3-4646-a7da-ce3c8973fa30/blja_over-shoulder-perch.jpg">
+    <div class="heat-label">Bluejay</div>
+  </div>
+
+  <div class="heat-item" onclick="toggleHeat('grnheron')">
+    <img src="https://images.squarespace-cdn.com/content/v1/55c0d7e5e4b05b835010c1f4/1688140506444-Y21VSB31IJXV1HZJSE4S/GreenHeron-log_AK.jpg?format=1500w">
+    <div class="heat-label">Green Heron</div>
+  </div>
+   
+  <div class="heat-item" onclick="toggleHeat('cardinal')">
+    <img src="https://images.squarespace-cdn.com/content/v1/55c0d7e5e4b05b835010c1f4/1705001970254-ZM1RCQ3L1NQU74VCUMBO/Male+cardinal%2C+photo+credits+to+Arlene+Koziol.jpg?format=1500w">
+    <div class="heat-label">Northern Cardinal</div>
+  </div>
+   
+  <div class="heat-item clear" onclick="clearHeat()">
+    <div class="heat-label">Turn Heatmap Off</div>
+  </div>
+
+</div>
+  </div>
+     
+<div id="species-info" class="species-info-box">
+  <h6>Species Info</h6>
+  <p>Click a species to learn more.</p>
+</div>
+     
+</div>
+
+      <!-- Info Text -->
+      <p><strong>Park/Outlook Locations:</strong> Tree markers show where each park or scenic outlook is located.</p>
+
+      <p><strong>Search and Navigation:</strong> Use park-name search, the mini map, scale bar, and full-extent button to explore efficiently.</p>
+
+      <div id="top-peaks-buttons" class="d-grid gap-2 mb-3"></div>
+
+      <p><strong>Proportional Circles showing number of expeditions:</strong> Circle size represents the number of expeditions for each peak.</p>
+
+      <p><strong>Sighting Density Heat Map:</strong> Heat intensity is weighted by total number of sightings occured in an area, so brighter areas indicate places with higher sighting totals.</p>
+
     </div>
+  </div>
+</div>
    
    
   
-     <!-- Your map code  -->
-  <script src="final_project.js"></script>
-    
+   
+
     
  <h3 id="footer"> Created by Finn Patenaude.
-   <a href="../index.html">Click here to get back to my main page.</a> </h3>
+   <a href="../index.html">Click here to get back to my main page.</a> 
+   </h3>
    
 <!-- Your map code  --> 
    <script src="final_project.js"></script>  
-</body> 
+            
+         
+      
+   </body>
 </html> 

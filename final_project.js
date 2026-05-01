@@ -60,7 +60,7 @@ document.getElementById("heatmap-legend").innerHTML = `
   </div>
 `;
 
-
+// Streetmap Basemap
 var Esri_WorldTopoMap = L.tileLayer(
   'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
   {
@@ -75,6 +75,14 @@ var grey = L.tileLayer(
     attribution: '&copy; OpenStreetMap &copy; CARTO',
     subdomains: 'abcd',
     maxZoom: 20
+  }
+);
+
+//Satellite imagery Basemap
+var Esri_WorldImagery = L.tileLayer(
+  'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+  {
+    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics, and others'
   }
 );
 
@@ -132,6 +140,56 @@ var trail_spots = new L.geoJson(great_trail_spots, {
   }
 }).addTo(mymap);
 
+var bikeTrails;
+
+fetch('biketrails.geojson')
+  .then(res => res.json())
+  .then(data => {
+
+    bikeTrails = L.geoJson(data, {
+
+      style: function(feature) {
+        return {
+          color: '#ac750e',   // green
+          weight: 4
+        };
+      },
+
+      onEachFeature: function(feature, layer) {
+        layer.bindPopup(
+          '<p><b>' + "(Bike Trail) Great River Trail + La Crosse River Trail + Elroy Sparta Trail + 400 State Trail" + '</b><br>'
+        );
+      }
+
+    }).addTo(mymap);
+
+  });
+
+var scenicByways;
+
+fetch('scenicbyways.geojson')
+  .then(res => res.json())
+  .then(data => {
+
+    scenicByways = L.geoJson(data, {
+
+      style: function(feature) {
+        return {
+          color: '#888888',   // green
+          weight: 4
+        };
+      },
+
+      onEachFeature: function(feature, layer) {
+        layer.bindPopup(
+          '<p><b>' + "(Road) Great River Road + Lower Wisconsin River Road" + '</b><br>'
+        );
+      }
+
+    }).addTo(mymap);
+
+  });
+
 // ------------------------
 // Home Button
 // ------------------------
@@ -175,16 +233,25 @@ function createHeatMap(data) {
 var eagleHeat;
 var robinHeat;
 var heronHeat;
+var bluejayHeat;
+var grnheronHeat;
+var cardinalHeat;
 
 Promise.all([
   fetch('baldeagles.geojson').then(res => res.json()),
   fetch('americanrobins.geojson').then(res => res.json()),
-  fetch('greatblueherons.geojson').then(res => res.json())
-]).then(([eagleData, robinData, heronData]) => {
+  fetch('greatblueherons.geojson').then(res => res.json()),
+  fetch('bluejay.geojson').then(res => res.json()),
+  fetch('greenheron.geojson').then(res => res.json()),
+  fetch('northerncardinal.geojson').then(res => res.json())
+]).then(([eagleData, robinData, heronData, bluejayData, grnheronData, cardinalData]) => {
 
   eagleHeat = createHeatMap(eagleData);
   robinHeat = createHeatMap(robinData);
   heronHeat = createHeatMap(heronData);
+  bluejayHeat = createHeatMap(bluejayData);
+  grnheronHeat = createHeatMap(grnheronData);
+  cardinalHeat = createHeatMap(cardinalData);
 
   // Add one by default (optional)
   eagleHeat.addTo(mymap);
@@ -196,20 +263,116 @@ Promise.all([
 
     var baseMaps = {
       "Topographic": Esri_WorldTopoMap,
-      "Grayscale": grey
+      "Grayscale": grey,
+      "Satellite Imagery": Esri_WorldImagery
     };
 
     var overlays = {
       "Park Locations": trail_spots,
+      "Trails": bikeTrails,
+      "Scenic Byways": scenicByways,
+    };
+  
+    var heatmaps = {
       "Bald Eagle": eagleHeat,
       "American Robin": robinHeat,
       "Great Blue Heron": heronHeat,
+      "Bluejay": bluejayHeat,
+      "Green Heron": grnheronHeat,
+      "Northern Cardinal": cardinalHeat,
     };
 
     L.control.layers(baseMaps, overlays, {
       collapsed: false
     }).addTo(mymap);
   });
+
+
+// Heat Map Species Grid
+
+function toggleHeat(type) {
+  const maps = {
+    eagle: eagleHeat,
+    robin: robinHeat,
+    heron: heronHeat,
+    bluejay: bluejayHeat,
+    grnheron: grnheronHeat,
+    cardinal: cardinalHeat,
+  };
+
+  // remove all heat layers
+  Object.values(maps).forEach(layer => {
+    if (mymap.hasLayer(layer)) mymap.removeLayer(layer);
+  });
+
+  // add selected
+  mymap.addLayer(maps[type]);
+
+  updateActiveTile(type);
+  updateSpeciesInfo(type);
+}
+ 
+function updateActiveTile(type) {
+  document.querySelectorAll('.heat-item')
+    .forEach(el => el.classList.remove('active'));
+
+  const order = ['eagle', 'robin', 'heron', 'bluejay','grnheron','cardinal'];
+  const index = order.indexOf(type);
+
+  if (index !== -1) {
+    document.querySelectorAll('.heat-item')[index]
+      .classList.add('active');
+  }
+}
+
+function clearHeat() {
+  [eagleHeat, robinHeat, heronHeat].forEach(layer => {
+    if (mymap.hasLayer(layer)) mymap.removeLayer(layer);
+  });
+
+  document.querySelectorAll('.heat-item')
+    .forEach(el => el.classList.remove('active'));
+}
+
+// Species Information
+
+const speciesInfo = {
+  eagle: {
+    title: "Bald Eagle",
+    text: "Large raptor commonly found near lakes and rivers. Known for fish hunting and nesting in tall trees."
+  },
+  robin: {
+    title: "American Robin",
+    text: "Common songbird in Wisconsin. Often seen hopping on lawns searching for worms."
+  },
+  heron: {
+    title: "Great Blue Heron",
+    text: "Tall wading bird found near wetlands. Hunts fish in shallow water."
+  },
+  bluejay: {
+    title: "Bluejay",
+    text: "Large crested songbird with broad, rounded tail. Often around urban areas or trails."
+  },
+  grnheron: {
+    title: "Green Heron",
+    text: "Short and stocky heron often seen on riverbanks and near water looking for fish."
+  },
+  cardinal: {
+    title: "Northern Cardinal",
+    text: "Small perching songbird. Males are bright red, while females are brown with a touch of red."
+  }
+};
+
+function updateSpeciesInfo(type) {
+  const box = document.getElementById("species-info");
+
+  const data = speciesInfo[type];
+
+  box.innerHTML = `
+    <h6>${data.title}</h6>
+    <p>${data.text}</p>
+  `;
+}
 
 // ------------------------
 // Search Control
