@@ -27,6 +27,9 @@ legend.onAdd = function (map) {
 
     <img src="imagesFP/4874bc2389e71df4c479ad933b12226a.svg" width="18">
     Park locations
+    
+    <i style="background: gray; width: 12px; height:4pxdisplay:inline-block;"></i>
+    Scenic Byways<br>
   `;
 
   return div;
@@ -55,6 +58,16 @@ document.getElementById("heatmap-legend").innerHTML = `
     <div class="mt-2">
       <img src="imagesFP/4874bc2389e71df4c479ad933b12226a.svg" width="18">
       Park/Trail/Overlook Locations
+    </div>
+
+    <div>
+      <span style="background:brown;width:12px;height:4px;display:inline-block;border-radius:50%;"></span>
+      Trails
+    </div>
+
+    <div>
+      <span style="background:gray;width:12px;height:4px;display:inline-block;border-radius:50%;"></span>
+      Scenic Byways
     </div>
 
   </div>
@@ -326,7 +339,7 @@ function updateActiveTile(type) {
 }
 
 function clearHeat() {
-  [eagleHeat, robinHeat, heronHeat].forEach(layer => {
+  [eagleHeat, robinHeat, heronHeat, grnheronHeat, bluejayHeat, cardinalHeat].forEach(layer => {
     if (mymap.hasLayer(layer)) mymap.removeLayer(layer);
   });
 
