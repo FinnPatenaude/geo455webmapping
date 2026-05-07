@@ -28,8 +28,11 @@ legend.onAdd = function (map) {
     <img src="imagesFP/4874bc2389e71df4c479ad933b12226a.svg" width="18">
     Park locations
     
-    <i style="background: gray; width: 12px; height:4pxdisplay:inline-block;"></i>
+    <i style="background: gray; width: 12px; height:4px; display:inline-block;"></i>
     Scenic Byways<br>
+    
+    <i style="background: brown; width: 12px; height:4px; display:inline-block;"></i>
+    Trails <br>
   `;
 
   return div;
