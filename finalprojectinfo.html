@@ -26,26 +26,60 @@
         <p>This project was created as an all-inclusive place to plan your birding adventures within the beautiful Wisconsin Driftless Region. Providing you with icons to represent parks in the area as well as heatmaps for multiple of the area's most iconic bird species.</p>
         <p>This webmap is intended for both local residents and visitors alike. While many birders seek out specific species, some travellers may be more interested in seeing what birds overlap their favorite parks or near their homes. This map provides the tools for either user to see what birds are out there and where they might have the best chance of seeing them.  </p>
         <p>Allowing the public to have access to data such as this iNaturalist observation data in a format that is digestible and user-friendly makes it easier to develop an attachment and care for the beautiful creatures and places around us. Allowing the everyday to be exciting and making your next adventure planning accessible means more people will be outside experiencing the Driftless Region. Meaning more people will protect it and preserve it for future generations.</p>
-      <h2>Check it out here:</h2>
+      <h2>Return to the Map:</h2>
       <ul class="menulist">
         <li class="menuitem"><a href="final_project.html">Interactive Birding Guide for the WI Driftless</a></li>
       </ul>
-      <h3> Project Summary</h3>
-      <p> Significance/What works well:</p>
-      <p> Strengths</p>
-      <p> Limitations</p>
-      <p> Next Steps</p>
+      <h2> About This Map/Project:</h2>
+      <h3> Introduction, Motivation, and Objective </h3>
+      <p> This is a map of local bird sightings and local recreational infrastructure.This map allows users to visually compare the locations of previous bird sightings with bike trails, scenic byways and regional parks that might help them view our feathered friends. After viewing this map, users should be inspired to go out and explore the Driftless Region. This map is designed for local residents and tourists alike. Bringing the hobby of birding to all those interested in learning more. 
+      <h3> Core Interactions </h3>
+      <ol id="species"></ol> 
+       <script>
+            var data = ["<b>Home Button:</b> Returns view to default extent", "<b>Info Button:</b> Forwards user to this page, giving background info on the map/project", "<b>Search Tool:</b> Search capability for parks with automatic zoom functionality", "<b>Basemap Controls:</b> Allows selection between Esri Topographic, Esri Grayscale and Esri Satellite Imagery options", "<b>Layer Controls/Thematic Layers:</b> Allows control of park locations, trails and scenic byway layers", "<b>Park Popups:</b> Click each park for an image, quick park description and City/County info", "<b>Heat Map Species Controls:</b> Selection of individual species cards displays the associated heatmap layer",  "<b> Live Species Info Card:</b> Updates a short species description based on which heatmap is selected/displayed", "<b> Map Legend:</b> Consistently present legend with heatmap and geometry components"];
+            var html = "";
+            data.forEach(function(element) {
+                html += "<li><i>" + element + "</i></li>";
+            });
+            document.getElementById("species").innerHTML = html;
+            
+            
+            
+        </script>
+      
+      <p> </p>
+      <h3> Methodology</h3>
+      <p> Key datasets for this project include <a href="https://www.inaturalist.org/">iNaturalist.org</a> (species sighting data) and <a href="https://dnr.wisconsin.gov/topic/EndangeredResources/birdtrail"> Wisconsin DNR</a> (park locations, trail maps and road data). Both websites are hosting all information used in this map open to the public and downloadable. My workflow included specific data preparation for each thematic layer. The following flowchart depicts those independent processes and illustrate the use of both ArcGIS and coding platforms for different pieces of data design. </p> 
+  
+      <img src="imagesFP/interactivebirdingguide.png" alt="Methodological Flowchart for Thematic Layer Creation for Interactive Birding Guide to the WI Driftless GEO 455 Final Project" width="650" height="260" />
+      <p> Web delivery is indicated above, primarily converting data to GeoJSON format and hosting those files in appropriate folders in GitHub. Those GeoJSONs are then accessed via fetch functions and imported into the map's display. </p>
+      <h3> Data Sources </h3>
+      <p> Park Locations/Information - Locations were taken from <a href="https://dnr.wisconsin.gov/topic/EndangeredResources/birdtrail"> Wisconsin DNR Mississippi/Chippewa Rivers Region Viewing Guide</a> and manually geocoded, with descriptions and images from WI DNR as well.</p> 
+      <p> Species Heatmap Data - Species sighting data was obtained from <a href="https://www.inaturalist.org/observations?month=6,7,8,9&subview=map&taxon_id=48662/">iNaturalist.org's custom search feature</a> and downloaded locally. </p>
+      <p> Bike Trails - Trails were selected from <a href="https://dnr.wisconsin.gov/topic/parks/trails"> Wisconsin DNR's state trail collection</a> and manually digitized guided by WI DNR pdf maps. </p>
+      <p> WI Scenic Byways - Road geometry was obtained from <a href="https://data-wisdot.opendata.arcgis.com/datasets/scenic-byways-1/explore?location=44.661929%2C-89.857805%2C6"> Wisconsin Department of Transportation Open Data Portal.</a></p>
+      <p> Bird Species control images are all open-source (Creative Commons Licensed) images. </p>
+      <h3> Project Summary </h3>
+      <p><b>Significance/Strengths</b> - Tourism/recreational infrastructure side-by-side with observation data. Layer control is well-organized, easily accessible and interesting. Multiple heatmaps are not storage intensive and easy fetchable via GEoJSON. Live species information panel is fun and well designed.</p>
+      <p><b>Limitations</b> - Manual layer creation/alteration is slow and can be drastically improved (Modelbuilder?). I would like to have included more trails, more roads, more parks, and more species if I had more time. Color coding of the heatmap feels a little off, would also be interesting to have multiple species displayed at once, currently limited to one at a time.</p>
+      <p><b>Next Steps</b> - Park polygons in addition to icons, could be added when selected or searched to decrease visual clutter when zoomed out. I would love to integrate a more field guide-esk CSS style, including the main map and info page. </p>
+      <h3> Map Credits</h3>
+      <p> Map Author: Finn Patenaude, Course: UWL GEO 455 - Webmapping, Instructor: Gargi Chauduri</p>
+      <P> AI was primarily utilized for troubleshooting code and occasional styling instruction.</P>
     </nav>
 
     <aside class="sidebar right" aria-label="Instructor info">
       <h2>Contact</h2>
       <p><em>Finn Patenaude</em></p>
       <p><a href="mailto:patenaude0129@uwlax.edu">patenaude0129@uwlax.edu</a></p>
-      <h3> Data Sources:</h3>
+      <h3> External Inspiration & Quick Links:</h3>
       <p>Wisconsin Park/Trail location and supplemental information was obtained from the Great Wisconsin Birding and Nature Trail pamphlet created by the <a href="https://dnr.wisconsin.gov/topic/EndangeredResources/birdtrail"> Wisconsin DNR.</a></p>
-      <h3> Methodology/Processing:</h3>
       <p>The species sighting information was obtained from <a href="https://www.inaturalist.org/">iNaturalist.org</a> and cropped to the study area (Driftless Region) in ArcGIS Pro.</p>
-    
+      <p> Read more on the sources in the left panel under "Data Sources."</p>
+      <p> These are some additional birding web maps that served as inspiration and influenced this project. Links to check them out can be found below!</p>
+      <p> <a href="https://gis.audubon.org/portal/apps/dashboards/1742bc47f980490da9c23e23dc4d5e86">Important Bird Areas (USA)</a> </p>
+      <p> <a href="https://gis.audubon.org/portal/apps/dashboards/1742bc47f980490da9c23e23dc4d5e86">Bird Migration Explorer</a> </p>
+      <p> <a href="https://migrationatlas.org/">Bird Migration Atlas</a> </p>
     </aside>
 
     
